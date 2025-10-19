@@ -99,6 +99,7 @@ return array(
     'Dompdf\\Renderer\\TableCell' => $vendorDir . '/dompdf/dompdf/src/Renderer/TableCell.php',
     'Dompdf\\Renderer\\TableRowGroup' => $vendorDir . '/dompdf/dompdf/src/Renderer/TableRowGroup.php',
     'Dompdf\\Renderer\\Text' => $vendorDir . '/dompdf/dompdf/src/Renderer/Text.php',
+    'DonorDocs\\Controllers\\DashboardController' => $baseDir . '/src/Controllers/DashboardController.php',
     'Dotenv\\Dotenv' => $vendorDir . '/vlucas/phpdotenv/src/Dotenv.php',
     'Dotenv\\Exception\\ExceptionInterface' => $vendorDir . '/vlucas/phpdotenv/src/Exception/ExceptionInterface.php',
     'Dotenv\\Exception\\InvalidEncodingException' => $vendorDir . '/vlucas/phpdotenv/src/Exception/InvalidEncodingException.php',

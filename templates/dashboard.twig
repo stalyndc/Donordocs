@@ -1,0 +1,48 @@
+{% extends 'layouts/base.twig' %}
+
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h1 class="h3 fw-semibold mb-1 text-white">Dashboard</h1>
+      <p class="text-secondary mb-0">Snapshot of your donor activity.</p>
+    </div>
+    <button class="btn btn-outline-info btn-sm" type="button">
+      Generate Receipt
+    </button>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <p class="text-uppercase text-secondary fw-semibold mb-2">Total Donations</p>
+        <p class="display-6 fw-bold text-white mb-0">${{ metrics.totalDonations|number_format(2) }}</p>
+        <small class="text-secondary">Lifetime giving</small>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <p class="text-uppercase text-secondary fw-semibold mb-2">This Month</p>
+        <p class="display-6 fw-bold text-white mb-0">${{ metrics.monthlyDonations|number_format(2) }}</p>
+        <small class="text-secondary">Donations recorded in {{ "now"|date("F") }}</small>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <p class="text-uppercase text-secondary fw-semibold mb-2">Active Donors</p>
+        <p class="display-6 fw-bold text-white mb-0">{{ metrics.donorCount }}</p>
+        <small class="text-secondary">Donors with at least one recorded gift</small>
+      </div>
+    </div>
+  </div>
+
+  <section class="mt-5">
+    <div class="card p-4">
+      <h2 class="h5 fw-semibold text-white mb-3">Next Steps</h2>
+      <ul class="mb-0 text-secondary">
+        <li>Configure your organization settings.</li>
+        <li>Add donors and record donations.</li>
+        <li>Generate and download compliant receipts.</li>
+      </ul>
+    </div>
+  </section>
+{% endblock %}

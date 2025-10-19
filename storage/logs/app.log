@@ -1,0 +1,2 @@
+[2025-10-18T20:38:33.217767-04:00] DonorDocs.ERROR: Database connection failed: could not find driver {"message":"could not find driver"} []
+[2025-10-18T20:38:33.244773-04:00] DonorDocs.INFO: Dashboard requested {"path":"http://localhost:8080/"} []
