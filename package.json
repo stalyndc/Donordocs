@@ -1,0 +1,23 @@
+{
+    "name": "donordocs",
+    "version": "1.0.0",
+    "private": true,
+    "description": "DonorDocs — IRS-compliant donation receipts and reports for U.S. nonprofits.",
+    "type": "module",
+    "scripts": {
+      "build": "esbuild resources/ts/app.ts --bundle --minify --sourcemap --outfile=public/assets/js/app.js",
+      "dev": "esbuild resources/ts/app.ts --bundle --watch --outfile=public/assets/js/app.js",
+      "clean": "rm -rf public/assets/js && mkdir -p public/assets/js"
+    },
+    "dependencies": {
+      "bootstrap": "^5.3.3",
+      "chart.js": "^4.4.4",
+      "htmx.org": "^1.9.12"
+    },
+    "devDependencies": {
+      "@types/node": "^22.7.4",
+      "esbuild": "^0.24.0",
+      "typescript": "^5.6.3"
+    }
+  }
+  

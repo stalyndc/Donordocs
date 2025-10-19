@@ -228,7 +228,7 @@ When working with Codex or GPT-based assistants:
 
 ---
 
-**Maintainer:** [Stalyn Disla](mailto:support@donordocs.com)  
+**Maintainer:** [Stalyn](mailto:mail@disla.net)  
 **Last Updated:** October 2025  
 **Version:** 1.0.0
 
