@@ -1,253 +1,160 @@
-Task: Replace Dashboard as Front Page & Build Marketing Home
+SUGGESTIONS_FOR_CODEX.md
+
+Feedback + next tasks for the new DonorDocs marketing home and app.
+Keep the current look & palette. Focus on polish, accessibility, performance, and launch-readiness.
+
+1. Routing, Access & Structure
+   Keep marketing routes public; gate the app under /app or /dashboard.
+   // src/Routes.php
+   $app->get('/', [MarketingController::class, 'home'])->setName('home');
+$app->get('/pricing', [MarketingController::class, 'pricing'])->setName('pricing');
+
+// Protect dashboard later with auth middleware
+$app->get('/dashboard', [DashboardController::class, 'index'])
+->setName('dashboard'); // attach auth middleware when auth lands
+
+Add 404 and /privacy, /terms stubs now (linked in footer).
+Ensure Open App CTA points to /dashboard and Get Started points to the same for now.
+) Header/Nav & Footer
+Make header sticky with subtle border; keep CTA contrast AA.
+Add current-page state (aria-current) & keyboard focus styles.
+Footer: add real links for Privacy/Terms (stubs), mailto:support@donordocs.com.
+
+{# active link helper #}
+<a href="{{ path('pricing') }}" aria-current="{{ app.request.uri.path starts with '/pricing' ? 'page' : 'false' }}">
+Pricing
+</a>
+
+3. Accessibility (A11y) & Semantics
+   Landmarks: header, main, footer, nav[aria-label="Primary"].
+   One h1 per page (landing already good). Subsequent sections: h2.
+   Buttons vs links: CTAs that navigate → <a class="btn ...">; actions → <button>.
+   Provide skip to content link at top.
+   Ensure focus ring is visible on dark bg (outline: 2px solid #61dafb).
+   Provide descriptive alt text for any future screenshots.
+
+<a href="#content" class="visually-hidden-focusable">Skip to content</a>
+
+Performance (Lighthouse 90+)
+Preload Work Sans and provide system fallbacks.
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap"></noscript>
+<style>body{font-family:"Work Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}</style>
+
+Defer JS: bundle is already small—ensure it’s loaded at end of <body> with defer.
+Use CSS logical properties & prefers-reduced-motion (reduce heavy shadows on low-power devices).
+Add image placeholders for dashboard screenshot with proper sizes; when real image is added, loading="lazy" and width/height attributes.
+
+SEO & Social
+Unique <title> and <meta name="description">.
+Add Open Graph + Twitter cards.
+Add basic JSON-LD Organization schema.
+Provide robots.txt and sitemap.xml stubs.
+
+<title>DonorDocs — IRS-Compliant Donation Receipts for U.S. Nonprofits</title>
+<meta name="description" content="Generate branded, audit-ready receipts and Excel reports in seconds. Built for U.S. 501(c)(3) nonprofits.">
 
-The current Dashboard view is showing at / (front page). That should NOT be the public front page.
-Build a marketing home (landing) page and move the dashboard under /dashboard.
-
-Goals
-
-Public visitors see a marketing landing page at / (not the app dashboard).
-
-Existing dashboard remains accessible at /dashboard.
-
-Keep branding consistent: Work Sans, dark palette, no Tailwind, minimal Bootstrap 5 + custom CSS.
-
-Add simple nav links and CTAs to guide users to “Get Started” and “Open App (Dashboard)”.
-
-Routes & Controllers
-
-NEW: GET / → MarketingController::home() → templates/marketing/home.twig
-
-MOVE: GET /dashboard → current dashboard controller (keep as is)
-
-(Optional) GET /pricing → MarketingController::pricing() → templates/marketing/pricing.twig (stub)
-
-Update src/Routes.php:
-
-// New public landing
-$app->get('/', [\DonorDocs\Controllers\MarketingController::class, 'home'])->setName('marketing.home');
-
-// Dashboard now lives here (keep existing implementation)
-$app->get('/dashboard', [\DonorDocs\Controllers\DashboardController::class, 'index'])->setName('dashboard');
-
-Create src/Controllers/MarketingController.php:
-
-home(Request $req, Response $res): Response → render marketing/home.twig
-
-(Optional) pricing(...) → render marketing/pricing.twig
-
-templates/
-├─ layouts/
-│ └─ marketing_base.twig # separate base for landing pages
-├─ marketing/
-│ ├─ home.twig # new front page
-│ └─ pricing.twig # optional stub
-public/
-└─ assets/
-└─ css/marketing.css # landing-only overrides (imported after bootstrap)
-
-Branding & UI Requirements
-
-Font: Work Sans (Google Fonts)
-
-Colors (from our dark UI):
-
-Background: #0e0e0e
-
-Surface: #1a1a1a
-
-Text: #f5f5f5
-
-Subtext: #a1a1a1
-
-Accent (buttons/links): #61dafb
-
-Borders: #2b2b2b
-
-Optional highlight: #ffb86c
-
-Framework: Bootstrap 5 only. No Tailwind.
-
-JS: Existing TypeScript bundle; no new frameworks.
-
-Accessibility: Sufficient contrast, focus states, aria-labels on CTAs, semantic headings.
-
-Navigation (public pages)
-
-Top navbar (sticky, dark):
-
-Brand: “DonorDocs” (links to /)
-
-Links: Features, How it Works, Pricing, Docs (placeholder), Contact (mailto)
-
-Right side: Open App (links to /dashboard) and Get Started (links to /dashboard for now)
-
-Marketing Home Page Structure (templates/marketing/home.twig)
-
-Header / Hero (Above the fold)
-
-H1: “IRS-Compliant Donation Receipts. In Seconds.”
-
-Subtext: “Generate branded, audit-ready receipts and Excel reports for your U.S. nonprofit.”
-
-Primary CTA: Get Started → /dashboard
-
-Secondary CTA: See How It Works → anchor #how-it-works
-
-Background: dark gradient or subtle pattern; no heavy images by default.
-
-Trust/Highlights (3 cards)
-
-“USA 501(c)(3)-ready templates”
-
-“PDF receipts & Excel exports”
-
-“Simple, affordable, local-friendly”
-
-Feature Grid
-
-Receipt generator
-
-Year-end donor summaries (PDF)
-
-Excel/CSV exports
-
-Offline donations (cash/check)
-
-Sequential receipt numbering
-
-Dashboard totals
-
-How It Works (3 steps)
-
-Step 1: Configure org (EIN, logo)
-
-Step 2: Add donor & record donation
-
-Step 3: Click “Generate Receipt”
-
-Each step with small icon, 1–2 sentences.
-
-Compliance Note
-
-Short block with IRS Pub 1771 mention; editable templates; region: USA.
-
-Callout / Screenshot Placeholder
-
-Placeholder image box with caption: “Your dashboard, at a glance.”
-
-(Keep as a simple bordered rectangle for now)
-
-Pricing Teaser (can be a stub)
-
-Free (25 receipts/mo, watermark)
-
-Pro ($9/mo) — 250 receipts, branding, Excel
-
-Plus ($19/mo) — unlimited, summaries
-
-CTA to “Open App” or “Contact for agency”
-
-Footer
-
-© DonorDocs, Links: Privacy, Terms, Contact (mailto), GitHub (if public later)
-
-marketing_base.twig Requirements
-
-Loads:
-
-Work Sans font
-
-Bootstrap CSS
-
-public/assets/css/marketing.css
-
-Sets <meta name="description"> and OG tags
-
-Dark theme classes with proper contrast
-
-Top nav + footer included via Twig blocks/partials
-
-Expose a {% block content %}{% endblock %} for page-specific sections
-
-SEO & Social Meta (example):
-
-<meta name="description" content="DonorDocs helps U.S. nonprofits generate IRS-compliant donation receipts, year-end PDFs, and Excel reports.">
 <meta property="og:title" content="DonorDocs — IRS-Compliant Donation Receipts">
-<meta property="og:description" content="Generate branded, audit-ready receipts and Excel reports in seconds.">
+<meta property="og:description" content="Branded PDFs, Excel exports, and sequential receipt IDs for U.S. nonprofits.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ base_url() }}/">
 <meta property="og:image" content="{{ base_url() }}/assets/og-image.png">
 
-marketing.css Guidelines
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"DonorDocs",
+  "url":"{{ base_url() }}/",
+  "logo":"{{ base_url() }}/assets/logo.png",
+  "sameAs":[]
+}
+</script>
 
-Base: dark background, soft card shadows, rounded corners 8px
+robots.txt
 
-Buttons:
+User-agent: \*
+Disallow:
+Sitemap: {{ base_url() }}/sitemap.xml
 
-Primary: accent blue background #61dafb on dark, dark text #0e0e0e
+sitemap.xml (static for now)
 
-Secondary: transparent with #61dafb border, text #61dafb; hover = subtle fill
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{ base_url() }}/</loc></url>
+  <url><loc>{{ base_url() }}/pricing</loc></url>
+  <url><loc>{{ base_url() }}/dashboard</loc></url>
+  <url><loc>{{ base_url() }}/privacy</loc></url>
+  <url><loc>{{ base_url() }}/terms</loc></url>
+</urlset>
 
-Links: #61dafb; underline on hover
+6. Content Polish (copy & hierarchy)
 
-Card border: 1px solid #2b2b2b; background #1a1a1a
+Hero: current copy is strong. Keep H1 concise (<= 60 chars) for SEO.
 
-Example rules:
+Highlights: ensure each card has a short benefit line + one-sentence proof/explanation (already good).
 
-body { background:#0e0e0e; color:#f5f5f5; }
-.navbar { background:#0f0f10; border-bottom:1px solid #2b2b2b; }
-.card { background:#1a1a1a; border:1px solid #2b2b2b; border-radius:8px; }
-.btn-primary { background:#61dafb; color:#0e0e0e; border-color:#61dafb; }
-.btn-outline-primary { color:#61dafb; border-color:#61dafb; }
-.text-muted { color:#a1a1a1 !important; }
-.section { padding: 64px 0; }
+How it Works: keep 3 steps; add small checkmarks for visual rhythm.
 
-Copy (you can paste directly into the template)
+Compliance block: keep “Not legal advice.” bold. Link to IRS Pub 1771 later.
 
-Hero
+Pricing Section
+Move plan features into small lists (3–5 bullets each) for scannability.
+Add footnote: “Prices in USD. Cancel anytime.”
+Primary CTA under plans → Open App, secondary → Contact for Agency (mailto).
 
-H1: IRS-Compliant Donation Receipts. In Seconds.
+heming & CSS
+Keep dark palette; add light mode via prefers-color-scheme + toggle later.
+Ensure color contrast AA: check gray text vs background.
+Extract common tokens to CSS variables:
+:root{
+--bg:#0e0e0e; --surface:#1a1a1a; --text:#f5f5f5;
+--muted:#a1a1a1; --accent:#61dafb; --border:#2b2b2b; --warn:#ffb86c;
+}
+body{background:var(--bg);color:var(--text)}
+.card{background:var(--surface);border:1px solid var(--border)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#0e0e0e}
+.text-muted{color:var(--muted)!important}
 
-Sub: Generate branded, audit-ready receipts and Excel reports for your U.S. nonprofit.
+Security & Headers (basic hardening)
+Add baseline headers via .htaccess (Apache) or PHP middleware.
 
-Buttons: Get Started (primary) / See How It Works (secondary)
+# public/.htaccess (additions)
 
-Highlights
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 
-USA 501(c)(3) templates — Preloaded IRS Pub 1771 wording
+# Basic CSP (loosen fonts if needed)
 
-PDF + Excel — Download receipts and year-end summaries
+Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline';"
 
-Simple & affordable — Built for small nonprofits
+App Readiness Hooks (even before auth)
+Create a settings wizard (later) – for now, add a notice on dashboard if org fields (EIN/logo) are empty.
+Add receipt ID format preview in settings (DD-YYYY-000001), with year rollover logic.
+Add export sanity: when no data, show helpful empty states.
 
-How It Works steps
+Analytics & Consent (when public)
+Add privacy-respecting analytics (Plausible or GA4). Load after consent.
+Cookie banner (strictly necessary only; no tracking until user agrees).
 
-Set up your org — Add EIN, address, and logo
+Acceptance Checklist (for this iteration)
+/ public marketing page passes Lighthouse 90+ (Performance, A11y, Best Practices, SEO).
+Keyboard navigation works across all interactive elements.
+404, Privacy, Terms pages exist and are linked.
+Meta/OG tags present; robots.txt + sitemap.xml added.
+CSS variables extracted; font loaded with preload & fallback.
+Buttons/links have visible focus and ARIA where needed.
+Dashboard remains at /dashboard and is not index.
 
-Record donations — Cash, check, ACH, or card
+13. Nice-to-Have (if time permits)
 
-Generate receipts — Branded PDFs and Excel exports
+Replace the dashboard screenshot placeholder with a generated SVG gradient card for now (perf-friendly).
 
-Compliance block
+Add tiny micro-interactions (CSS only) on cards (:hover lift by 1–2px).
 
-DonorDocs includes default language for U.S. charitable acknowledgments and lets you customize templates. (Not legal advice.)
-
-Acceptance Criteria
-/ renders marketing/home.twig using marketing_base.twig
-Navbar has links + Open App button → /dashboard
-Dashboard is not visible at / anymore; it’s at /dashboard
-Colors/typography match spec (Work Sans, dark palette)
-No Tailwind; minimal Bootstrap + marketing.css
-Page is responsive and accessible (keyboard focus, aria labels)
-Meta description + OG tags present
-Build outputs remain the same (public/assets/js/app.js, CSS under public/assets/css/)
-
-Notes
-
-Don’t remove existing dashboard logic or metrics.
-
-Keep all public marketing templates under templates/marketing/.
-
-Keep the marketing CSS separate from app CSS to avoid leaks.
-
-If any conflicts arise, prefer marketing_base.twig for landing pages and keep app pages on the existing base layout.
+Smooth-scroll for in-page anchors (scroll-behavior: smooth in CSS).

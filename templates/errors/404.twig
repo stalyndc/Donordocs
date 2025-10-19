@@ -1,0 +1,23 @@
+{% extends 'layouts/marketing_base.twig' %}
+
+{% block content %}
+  <section class="section" aria-labelledby="not-found-heading">
+    <div class="container text-center text-md-start">
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <h1 id="not-found-heading" class="display-5 fw-bold text-white mb-3">Page not found</h1>
+          <p class="text-muted lead mb-5">The page you were looking for may have moved or no longer exists.</p>
+          <div class="card p-4 p-md-5">
+            <p class="text-muted mb-4">
+              Double-check the URL, or head back to the DonorDocs marketing home to explore features and pricing.
+            </p>
+            <div class="d-flex flex-column flex-sm-row gap-3">
+              <a class="btn btn-primary px-4" href="{{ url_for('home') }}">Back to Home</a>
+              <a class="btn btn-outline-primary px-4" href="{{ url_for('dashboard') }}">Open App</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

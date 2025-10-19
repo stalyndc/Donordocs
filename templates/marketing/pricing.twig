@@ -1,11 +1,11 @@
 {% extends 'layouts/marketing_base.twig' %}
 
 {% block content %}
-  <section class="section">
+  <section class="section" aria-labelledby="pricing-page-heading">
     <div class="container text-center text-md-start">
       <div class="row justify-content-center">
         <div class="col-lg-8">
-          <h1 class="display-5 fw-bold text-white mb-3">Pricing</h1>
+          <h1 id="pricing-page-heading" class="display-5 fw-bold text-white mb-3">Pricing</h1>
           <p class="lead text-muted mb-5">Choose the plan that fits your mission today and scale as your donor base grows.</p>
         </div>
       </div>
@@ -15,6 +15,11 @@
             <h2 class="h4 text-white mb-2">Free</h2>
             <p class="text-muted mb-4">Get started with 25 receipts each month and a DonorDocs watermark.</p>
             <span class="pricing-amount text-white">$0</span>
+            <ul class="list-unstyled text-muted mt-3 small">
+              <li>✔ 25 receipts per month</li>
+              <li>✔ DonorDocs watermark</li>
+              <li>✔ Email support</li>
+            </ul>
           </div>
         </div>
         <div class="col-md-4">
@@ -22,6 +27,11 @@
             <h2 class="h4 text-white mb-2">Pro</h2>
             <p class="text-muted mb-4">250 receipts, custom branding, and downloadable Excel reports.</p>
             <span class="pricing-amount text-white">$9<span class="text-muted fs-6">/mo</span></span>
+            <ul class="list-unstyled text-muted mt-3 small">
+              <li>✔ Custom logo & signature</li>
+              <li>✔ Excel exports & donor summaries</li>
+              <li>✔ Priority nonprofit support</li>
+            </ul>
           </div>
         </div>
         <div class="col-md-4">
@@ -29,6 +39,11 @@
             <h2 class="h4 text-white mb-2">Plus</h2>
             <p class="text-muted mb-4">Unlimited receipts, year-end summaries, and agency support.</p>
             <span class="pricing-amount text-white">$19<span class="text-muted fs-6">/mo</span></span>
+            <ul class="list-unstyled text-muted mt-3 small">
+              <li>✔ Unlimited receipts & exports</li>
+              <li>✔ Agency workspaces</li>
+              <li>✔ Live onboarding session</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -39,6 +54,7 @@
         <a class="btn btn-outline-primary btn-lg px-4 ms-sm-3 mt-3 mt-sm-0" href="mailto:hello@donordocs.com" aria-label="Contact DonorDocs team">
           Contact Sales
         </a>
+        <p class="text-muted small mt-3">Prices in USD. Cancel anytime.</p>
       </div>
     </div>
   </section>

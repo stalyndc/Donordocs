@@ -10,9 +10,12 @@ use Monolog\Processor\PsrLogMessageProcessor;
 use PDO;
 use PDOException;
 use Slim\Factory\AppFactory;
-use Slim\Middleware\BodyParsingMiddleware;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+use Slim\Exception\HttpNotFoundException;
+use Psr\Http\Message\ServerRequestInterface;
+use Throwable;
+use DonorDocs\Controllers\MarketingController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -79,6 +82,18 @@ $errorMiddleware = $app->addErrorMiddleware(
     true,
     true,
     $logger
+);
+
+$responseFactory = $app->getResponseFactory();
+$marketingErrorController = new MarketingController($twig, $logger);
+
+$errorMiddleware->setErrorHandler(
+    HttpNotFoundException::class,
+    static function (ServerRequestInterface $request, Throwable $exception) use ($marketingErrorController, $responseFactory) {
+        $response = $responseFactory->createResponse();
+
+        return $marketingErrorController->notFound($request, $response);
+    }
 );
 return [
     'app' => $app,
