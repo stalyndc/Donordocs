@@ -1,0 +1,45 @@
+{% extends 'layouts/marketing_base.twig' %}
+
+{% block content %}
+  <section class="section">
+    <div class="container text-center text-md-start">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h1 class="display-5 fw-bold text-white mb-3">Pricing</h1>
+          <p class="lead text-muted mb-5">Choose the plan that fits your mission today and scale as your donor base grows.</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 p-4">
+            <h2 class="h4 text-white mb-2">Free</h2>
+            <p class="text-muted mb-4">Get started with 25 receipts each month and a DonorDocs watermark.</p>
+            <span class="pricing-amount text-white">$0</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4 spotlight-plan">
+            <h2 class="h4 text-white mb-2">Pro</h2>
+            <p class="text-muted mb-4">250 receipts, custom branding, and downloadable Excel reports.</p>
+            <span class="pricing-amount text-white">$9<span class="text-muted fs-6">/mo</span></span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4">
+            <h2 class="h4 text-white mb-2">Plus</h2>
+            <p class="text-muted mb-4">Unlimited receipts, year-end summaries, and agency support.</p>
+            <span class="pricing-amount text-white">$19<span class="text-muted fs-6">/mo</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5">
+        <a class="btn btn-primary btn-lg px-4" href="{{ url_for('dashboard') }}" aria-label="Open the DonorDocs app">
+          Open App
+        </a>
+        <a class="btn btn-outline-primary btn-lg px-4 ms-sm-3 mt-3 mt-sm-0" href="mailto:hello@donordocs.com" aria-label="Contact DonorDocs team">
+          Contact Sales
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

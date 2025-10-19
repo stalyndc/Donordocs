@@ -17,7 +17,7 @@ final class DashboardController
     ) {
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function index(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $this->logger->info('Dashboard requested', [
             'path' => (string) $request->getUri(),

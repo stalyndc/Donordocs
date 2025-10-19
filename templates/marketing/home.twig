@@ -1,0 +1,218 @@
+{% extends 'layouts/marketing_base.twig' %}
+
+{% block content %}
+  <section class="section hero-section text-center text-md-start">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-7">
+          <h1 class="display-5 fw-bold text-white mb-3">IRS-Compliant Donation Receipts. In Seconds.</h1>
+          <p class="lead text-muted mb-4">
+            Generate branded, audit-ready receipts and Excel reports for your U.S. nonprofit. Keep donor data local, compliant, and ready for audits.
+          </p>
+          <div class="d-flex flex-column flex-sm-row gap-3">
+            <a class="btn btn-primary btn-lg px-4" href="{{ url_for('dashboard') }}" aria-label="Get started with DonorDocs">
+              Get Started
+            </a>
+            <a class="btn btn-outline-primary btn-lg px-4" href="#how-it-works" aria-label="Learn how DonorDocs works">
+              See How It Works
+            </a>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="hero-card card p-4 h-100">
+            <span class="badge bg-info-subtle text-info-emphasis fw-semibold mb-3">Trusted by emerging nonprofits</span>
+            <ul class="list-unstyled mb-0 text-muted">
+              <li class="mb-3">
+                <strong class="text-white d-block">Auto-numbered receipts</strong>
+                Keep donors audit-ready with sequential receipt IDs.
+              </li>
+              <li class="mb-3">
+                <strong class="text-white d-block">PDF & Excel exports</strong>
+                Deliver year-end summaries in one click.
+              </li>
+              <li>
+                <strong class="text-white d-block">Host anywhere</strong>
+                Built for shared hosting and local-first deployments.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 p-4">
+            <h3 class="h5 text-white mb-2">USA 501(c)(3) templates</h3>
+            <p class="text-muted mb-0">Preloaded IRS Pub 1771 wording so every receipt checks the boxes.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4">
+            <h3 class="h5 text-white mb-2">PDF receipts & Excel exports</h3>
+            <p class="text-muted mb-0">Download receipts, donor summaries, and spreadsheets in a click.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4">
+            <h3 class="h5 text-white mb-2">Simple & affordable</h3>
+            <p class="text-muted mb-0">Designed for lean teams who need compliance without the bloat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section feature-grid">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 p-4">
+            <h3 class="h6 text-uppercase text-muted fw-semibold mb-2">Receipt generator</h3>
+            <p class="text-white mb-0">Brandable PDFs with signatures, EIN, and donor info prefilled.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 p-4">
+            <h3 class="h6 text-uppercase text-muted fw-semibold mb-2">Year-end summaries</h3>
+            <p class="text-white mb-0">Bundle annual donor activity with audit-ready language.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 p-4">
+            <h3 class="h6 text-uppercase text-muted fw-semibold mb-2">Excel & CSV exports</h3>
+            <p class="text-white mb-0">Push donation data to Excel or your accounting workflow fast.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 p-4">
+            <h3 class="h6 text-uppercase text-muted fw-semibold mb-2">Offline donations</h3>
+            <p class="text-white mb-0">Log cash, check, ACH, or card transactions with confidence.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 p-4">
+            <h3 class="h6 text-uppercase text-muted fw-semibold mb-2">Sequential numbering</h3>
+            <p class="text-white mb-0">Automatic formats like DD-2025-000123 keep auditors happy.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 p-4">
+            <h3 class="h6 text-uppercase text-muted fw-semibold mb-2">Dashboard insights</h3>
+            <p class="text-white mb-0">Track totals, donors, and trends before exporting anything.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="row justify-content-center text-center mb-5">
+        <div class="col-lg-6">
+          <h2 class="h3 text-white fw-semibold mb-3">How it Works</h2>
+          <p class="text-muted mb-0">Launch compliant acknowledgments in three focused steps.</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 p-4 text-start">
+            <span class="step-number">1</span>
+            <h3 class="h5 text-white mt-3 mb-2">Set up your org</h3>
+            <p class="text-muted mb-0">Add EIN, address, logo, and default acknowledgement language.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4 text-start">
+            <span class="step-number">2</span>
+            <h3 class="h5 text-white mt-3 mb-2">Record donations</h3>
+            <p class="text-muted mb-0">Log cash, check, ACH, or card gifts with designations and notes.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4 text-start">
+            <span class="step-number">3</span>
+            <h3 class="h5 text-white mt-3 mb-2">Generate receipts</h3>
+            <p class="text-muted mb-0">Click “Generate Receipt” to email-ready PDFs or Excel exports.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compliance-note" id="docs">
+    <div class="container">
+      <div class="card p-4 p-md-5">
+        <h3 class="h5 text-white mb-3">Compliance built in for U.S. nonprofits</h3>
+        <p class="text-muted mb-0">
+          DonorDocs includes default language for U.S. charitable acknowledgments and lets you customize templates.
+          <strong class="text-white">Not legal advice.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-6">
+          <div class="card placeholder-card p-5 text-center text-md-start">
+            <span class="text-muted text-uppercase fw-semibold mb-2 d-block">Live dashboard</span>
+            <h3 class="h4 text-white mb-3">Your dashboard, at a glance.</h3>
+            <p class="text-muted mb-0">Monitor receipts, donations, and donor activity the moment you log in.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="dashboard-frame">
+            <div class="dashboard-placeholder text-muted">Dashboard screenshot placeholder</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing-teaser" id="pricing">
+    <div class="container">
+      <div class="row justify-content-center text-center mb-5">
+        <div class="col-lg-6">
+          <h2 class="h3 text-white fw-semibold mb-3">Pricing that scales with your mission</h2>
+          <p class="text-muted mb-0">Start free. Upgrade when you need more receipts, branding, or exports.</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 p-4 text-start">
+            <h3 class="h5 text-white mb-1">Free</h3>
+            <p class="text-muted mb-3">25 receipts/month, watermark, community support.</p>
+            <span class="pricing-amount text-white">$0</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4 text-start border-primary-subtle spotlight-plan">
+            <h3 class="h5 text-white mb-1">Pro</h3>
+            <p class="text-muted mb-3">250 receipts, custom branding, Excel exports.</p>
+            <span class="pricing-amount text-white">$9<span class="text-muted fs-6">/mo</span></span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4 text-start">
+            <h3 class="h5 text-white mb-1">Plus</h3>
+            <p class="text-muted mb-3">Unlimited receipts, summaries, agency support.</p>
+            <span class="pricing-amount text-white">$19<span class="text-muted fs-6">/mo</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a class="btn btn-primary btn-lg px-4" href="{{ url_for('dashboard') }}" aria-label="Open the DonorDocs app">
+          Open App
+        </a>
+        <a class="btn btn-outline-primary btn-lg px-4 ms-sm-3 mt-3 mt-sm-0" href="mailto:hello@donordocs.com" aria-label="Contact DonorDocs team">
+          Contact for Agency
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
