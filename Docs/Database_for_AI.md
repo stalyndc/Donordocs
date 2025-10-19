@@ -50,3 +50,24 @@ Stores details of individual donations.
 - `notes`: Any additional notes about the donation, text.
 - `receipt_number`: Unique receipt number, up to 50 characters.
 - `pdf_path`: Path to the generated PDF receipt, up to 255 characters.
+
+## Migrations & Seeds
+
+Run the provided SQL files to bootstrap a development database:
+
+```bash
+mysql -u USER -p donordocs < database/migrations/001_create_core_tables.sql
+mysql -u USER -p donordocs < database/seeds/001_seed_sample_data.sql
+```
+
+The seed creates an admin user (`admin@donordocs.test`, password hash for `ChangeMe123!`) and two sample donors/donations to exercise the UI.
+
+## Repository Layer
+
+PDO access is wrapped in lightweight repositories under `src/Repositories/`:
+
+- `OrgSettingsRepository` — fetch and upsert organization profile/branding data.
+- `DonorRepository` — paginate, create, update, and delete donors.
+- `DonationRepository` — manage donations and increment receipt sequences.
+
+All repositories receive the shared PDO connection from the bootstrap container (`$container['repositories']`). Use these instead of writing raw queries inside controllers so validation, logging, and transactions stay consistent.

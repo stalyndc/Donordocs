@@ -14,8 +14,7 @@ final class MarketingController
     public function __construct(
         private readonly Twig $view,
         private readonly LoggerInterface $logger
-    ) {
-    }
+    ) {}
 
     public function home(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
@@ -166,18 +165,5 @@ XML;
         }
 
         return rtrim($_ENV['APP_URL'] ?? 'https://donordocs.com', '/');
-    }
-}
-    {
-        $this->logger->info('Marketing pricing requested', [
-            'path' => (string) $request->getUri(),
-        ]);
-
-        return $this->view->render($response, 'marketing/pricing.twig', [
-            'page' => [
-                'title' => 'Pricing',
-                'description' => 'Flexible plans for nonprofits to generate donation receipts and reports.',
-            ],
-        ]);
     }
 }

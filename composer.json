@@ -29,6 +29,11 @@
     },
     "scripts": {
       "start": "php -S localhost:8080 -t public",
+      "test": "php -r \"if (file_exists('vendor/bin/phpunit')) { exit(passthru('vendor/bin/phpunit')); } echo 'No automated tests configured yet.' . PHP_EOL;\"",
+      "ci": [
+        "@composer validate --no-check-lock",
+        "@composer test"
+      ],
       "post-install-cmd": [
         "@php -r \"is_dir('storage/receipts') || mkdir('storage/receipts', 0775, true);\"",
         "@php -r \"is_dir('storage/exports') || mkdir('storage/exports', 0775, true);\"",

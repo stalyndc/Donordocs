@@ -2,20 +2,24 @@
 
 declare(strict_types=1);
 
+use DonorDocs\Controllers\MarketingController;
+use DonorDocs\Database\ConnectionFactory;
+use DonorDocs\Repositories\DonationRepository;
+use DonorDocs\Repositories\DonorRepository;
+use DonorDocs\Repositories\OrgSettingsRepository;
 use Dotenv\Dotenv;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use PDO;
-use PDOException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
-use Slim\Exception\HttpNotFoundException;
 use Psr\Http\Message\ServerRequestInterface;
+use RuntimeException;
 use Throwable;
-use DonorDocs\Controllers\MarketingController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -40,29 +44,14 @@ $logger = new Logger($settings['logger']['name']);
 $logger->pushProcessor(new PsrLogMessageProcessor());
 $logger->pushHandler(new StreamHandler($settings['logger']['path'], $logLevel));
 
-$dsn = sprintf(
-    '%s:host=%s;port=%d;dbname=%s;charset=%s',
-    $settings['db']['driver'],
-    $settings['db']['host'],
-    $settings['db']['port'],
-    $settings['db']['database'],
-    $settings['db']['charset']
-);
-
 $pdo = null;
 
 try {
-    $pdo = new PDO(
-        $dsn,
-        $settings['db']['username'],
-        $settings['db']['password'],
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]
-    );
-} catch (PDOException $exception) {
-    $logger->error('Database connection failed: {message}', ['message' => $exception->getMessage()]);
+    $pdo = ConnectionFactory::create($settings['db'], $logger);
+} catch (RuntimeException $exception) {
+    if ($settings['app']['debug']) {
+        throw $exception;
+    }
 }
 
 $twig = Twig::create($rootPath . '/templates', [
@@ -95,6 +84,17 @@ $errorMiddleware->setErrorHandler(
         return $marketingErrorController->notFound($request, $response);
     }
 );
+
+$repositories = [];
+
+if ($pdo instanceof PDO) {
+    $repositories = [
+        'orgSettings' => new OrgSettingsRepository($pdo),
+        'donors' => new DonorRepository($pdo),
+        'donations' => new DonationRepository($pdo),
+    ];
+}
+
 return [
     'app' => $app,
     'container' => [
@@ -102,5 +102,6 @@ return [
         'logger' => $logger,
         'db' => $pdo,
         'view' => $twig,
+        'repositories' => $repositories,
     ],
 ];
